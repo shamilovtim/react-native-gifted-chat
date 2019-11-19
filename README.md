@@ -280,7 +280,6 @@ interface QuickReplies {
 - **`locale`** _(String)_ - Locale to localize the dates
 - **`timeFormat`** _(String)_ - Format to use for rendering times; default is `'LT'`
 - **`dateFormat`** _(String)_ - Format to use for rendering dates; default is `'ll'`
-- **`isAnimated`** _(Bool)_ - Animates the view when the keyboard appears
 - **`loadEarlier`** _(Bool)_ - Enables the "load earlier messages" button
 - **`onLoadEarlier`** _(Function)_ - Callback when loading earlier messages
 - **`isLoadingEarlier`** _(Bool)_ - Display an `ActivityIndicator` when loading earlier messages
