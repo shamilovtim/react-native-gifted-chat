@@ -78,6 +78,10 @@ export interface GiftedChatProps<TMessage extends IMessage = IMessage> {
   /* When false, avatars will only be displayed when a consecutive message is from the same user on the same day; default is false */
   showAvatarForEveryMessage?: boolean
   /* Render the message avatar at the top of consecutive messages, rather than the bottom; default is false */
+  isKeyboardInternallyHandled?: boolean
+  /* Determine whether to handle keyboard awareness inside the plugin. If you have your own keyboard handling outside the plugin set this to false; default is true */
+  keyboardVerticalOffset?: number
+  /* Active only when isKeyboardInternallyHandled is true; optionally set this to the height of your top or bottom chrome in order to correctly account for how the keyboard pushes up on the container. Bottom chrome will take a negative offset */
   renderAvatarOnTop?: boolean
   inverted?: boolean
   /* Extra props to be passed to the <Image> component created by the default renderMessageImage */
@@ -241,6 +245,8 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
     renderActions: null,
     renderSend: null,
     renderAccessory: null,
+    isKeyboardInternallyHandled: true,
+    keyboardVerticalOffset: 0,
     onPressActionButton: null,
     bottomOffset: 0,
     minInputToolbarHeight: 44,
@@ -605,21 +611,43 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
 
   renderMessages() {
     return (
-      <KeyboardAvoidingView enabled>
-        <View
-          style={{
-            height: this.state.messagesContainerHeight,
-          }}
-        >
-          <MessageContainer
-            {...this.props}
-            invertibleScrollViewProps={this.invertibleScrollViewProps}
-            messages={this.getMessages()}
-            forwardRef={this._messageContainerRef}
-          />
-          {this.renderChatFooter()}
-        </View>
-      </KeyboardAvoidingView>
+      <>
+        {this.props.isKeyboardInternallyHandled && (
+          <KeyboardAvoidingView
+            enabled
+            keyboardVerticalOffset={this.props.keyboardVerticalOffset}
+          >
+            <View
+              style={{
+                height: this.state.messagesContainerHeight,
+              }}
+            >
+              <MessageContainer
+                {...this.props}
+                invertibleScrollViewProps={this.invertibleScrollViewProps}
+                messages={this.getMessages()}
+                forwardRef={this._messageContainerRef}
+              />
+              {this.renderChatFooter()}
+            </View>
+          </KeyboardAvoidingView>
+        )}
+        {!this.props.isKeyboardInternallyHandled && (
+          <View
+            style={{
+              height: this.state.messagesContainerHeight,
+            }}
+          >
+            <MessageContainer
+              {...this.props}
+              invertibleScrollViewProps={this.invertibleScrollViewProps}
+              messages={this.getMessages()}
+              forwardRef={this._messageContainerRef}
+            />
+            {this.renderChatFooter()}
+          </View>
+        )}
+      </>
     )
   }
 

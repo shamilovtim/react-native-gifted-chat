@@ -281,6 +281,8 @@ interface QuickReplies {
 - **`timeFormat`** _(String)_ - Format to use for rendering times; default is `'LT'`
 - **`dateFormat`** _(String)_ - Format to use for rendering dates; default is `'ll'`
 - **`loadEarlier`** _(Bool)_ - Enables the "load earlier messages" button
+- **`handleKeyboardInternally`** _(Bool)_ - Determine whether to handle keyboard awareness inside the plugin. If you have your own keyboard handling outside the plugin set this to false; default is `true`
+- **`keyboardVerticalOffset`** _(Number)_ - Active only when `handleKeyboardInternally` is true; optionally set this to the height of your top or bottom chrome in order to correctly account for how the keyboard pushes up on the container. Bottom chrome will take a negative offset
 - **`onLoadEarlier`** _(Function)_ - Callback when loading earlier messages
 - **`isLoadingEarlier`** _(Bool)_ - Display an `ActivityIndicator` when loading earlier messages
 - **`renderLoading`** _(Function)_ - Render a loading view when initializing

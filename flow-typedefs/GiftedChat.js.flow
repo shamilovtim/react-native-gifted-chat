@@ -53,6 +53,8 @@ export type GiftedChatProps<TMessage: IMessage = IMessage> = $ReadOnly<{|
   locale?: string,
   timeFormat?: string,
   dateFormat?: string,
+  isKeyboardInternallyHandled?: boolean,
+  keyboardVerticalOffset?: number,
   loadEarlier?: boolean,
   isLoadingEarlier?: boolean,
   showUserAvatar?: boolean,
